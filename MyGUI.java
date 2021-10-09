@@ -164,8 +164,8 @@ import javax.swing.*;
           logica.enviarDatos("T","");
           
         } catch (Exception ex) {
-          System.out.println("No se pudo cerrar la conexion con el servidor");
-          JOptionPane.showMessageDialog(null,"No se pudo cerrar la conexion con el servidor");
+          System.out.println("No se encontró servidor");
+          JOptionPane.showMessageDialog(null,"No se encontró servidor");
           
         }
 
@@ -179,20 +179,7 @@ import javax.swing.*;
 
 
   }
-   /**
-    * metodo para cerrar la conexion con el servidor
-    * 
-    */
-    public void cerrarConexion(){
-      try {
-        logica.enviarDatos("T","");
-        
-      } catch (Exception e) {
-        System.out.println("No se pudo cerrar la conexion con el servidor");
-        JOptionPane.showMessageDialog(null,"No se pudo cerrar la conexion con el servidor");
-        
-      }
-    }
+ 
   public static void main(String[] args){
 
 
@@ -200,8 +187,8 @@ import javax.swing.*;
    //logica = new LogicaCliente();   
    MyGUI GUI = new MyGUI();
    String sal= GUI.logica.conectar("192.168.101.6"); //esta ip es local (puede cambiar)
+   JOptionPane.showMessageDialog(null, "El servidor no se encuentra en ejecución \nCierre el programa y ejecutelo despues del servidor ");
    //registroClienteServidor += sal;
-
    //GUI.Tabulado.append(sal); //en tabulado se va registrando lo que contesta el servidor
 
         if(sal.length()>0 && sal.substring(0, 1).equals("1"))
@@ -217,7 +204,7 @@ import javax.swing.*;
           GUI.logica.escucharAlServidor(GUI.listEst,GUI.listAsig, GUI.Tabulado);
          
         }
-        JOptionPane.showMessageDialog(null, "El servidor no se encuentra en ejecución \nCierre el programa y eecutelo despues del servidor ");
+        
         
   }
 
@@ -246,8 +233,7 @@ import javax.swing.*;
         
 
       }
-      ///POR AHORA TERMINA LA CONEXION AQUI
-      //logica.enviarDatos("T","");
+      
     }
   }
 	
