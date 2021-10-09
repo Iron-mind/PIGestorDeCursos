@@ -19,7 +19,7 @@ import javax.swing.*;
  public class MyGUI extends JFrame{
    //configuración servidor
     static LogicaCliente logica;
-    static String registroClienteServidor="";
+    
 
     //para la interfaz:
     Container contenedor;
@@ -146,7 +146,7 @@ import javax.swing.*;
     setTitle("Sistema de gestión de cursos");
     setSize(680, 400);
     setVisible(true);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     
 
@@ -160,19 +160,14 @@ import javax.swing.*;
     // parte del cliente
    logica = new LogicaCliente();   
    MyGUI GUI = new MyGUI();
-   String sal = logica.conectar("192.168.101.6"); //esta ip es local (puede cambiar)
-   registroClienteServidor += sal;
-   GUI.Tabulado.append(sal); //en tabulado se va registrando lo que contesta el servidor
-   
-   // servidor
-   /*
-   GUIServer aplicacion = new GUIServer();
-   LogicaServidor logicaS = new LogicaServidor();
-   logicaS.ejecutarServidor(aplicacion.area);
-   aplicacion.setDefaultCloseOperation(EXIT_ON_CLOSE);*/
+   String sal=logica.conectar("192.168.101.6"); //esta ip es local (puede cambiar)
+   //registroClienteServidor += sal;
+
+   //GUI.Tabulado.append(sal); //en tabulado se va registrando lo que contesta el servidor
+
         if(sal.length()>0 && sal.substring(0, 1).equals("1"))
         {
-           
+          JOptionPane.showMessageDialog(null, "Conexion exitosa");
           GUI.textEst.setEditable(true);
           GUI.matricular.setEnabled(true);
           
@@ -180,12 +175,11 @@ import javax.swing.*;
           
           GUI.cancelar.setEnabled(true);
                 //invocar al método que se queda escuchando al servidor
-          logica.escucharAlServidor(GUI.Tabulado);
-          
-          
-            
+          logica.escucharAlServidor(GUI.listEst,GUI.listAsig, GUI.Tabulado);
+         
         }
-
+        JOptionPane.showMessageDialog(null, "El servidor no se encuentra en ejecución \nCierre el programa y eecutelo despues del servidor ");
+        
   }
 
   class ManejaEvento implements ActionListener
@@ -199,20 +193,22 @@ import javax.swing.*;
 
       if(ae.getSource() == matricular)
       {
-       
-        JOptionPane.showMessageDialog(null, "Usted Intenta Matricular\n "+logica.enviarDatos("M"+textEst.getText().trim(),textAsi.getText().trim()));
+        logica.enviarDatos("tab","");
+        JOptionPane.showMessageDialog(null, "Usted Intenta Matricular\n "+logica.enviarDatos("M "+textEst.getText().trim(),textAsi.getText().trim()));
 
 
       }
       
       else if(ae.getSource() == cancelar)
       {
+        logica.enviarDatos("tab","");
         
-        
-        JOptionPane.showMessageDialog(null, "Usted Intenta Cancelar\n "+logica.enviarDatos("C"+textEst.getText().trim(),textAsi.getText().trim()));
-      }
+        JOptionPane.showMessageDialog(null, "Usted Intenta Cancelar\n "+logica.enviarDatos("Ca "+textEst.getText().trim(),textAsi.getText().trim()));
+        //JOptionPane.showMessageDialog(null, "Usted Intenta Cancelar\n "+logica.enviarDatos("TAB "+textEst.getText().trim(),textAsi.getText().trim()));
 
-      //JOptionPane.showMessageDialog(null,"registro Cliente servidor \n"+ registroClienteServidor);
+      }
+      ///POR AHORA TERMINA LA CONEXION AQUI
+      //logica.enviarDatos("T","");
     }
   }
 	

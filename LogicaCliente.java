@@ -21,6 +21,7 @@ public class LogicaCliente {
      */    
     public String conectar(String direccionServer)
     {
+        
         String mensaje = "";
         try {            
             
@@ -45,23 +46,54 @@ public class LogicaCliente {
     /**
      * método que se queda escuchando por los mensajes del servidor y lo muestro en el
      * area enviada como parámetro
-     * @param area El area de texto de la GUI donde se escribe lo que envía el servidor
+     * @param areaListaEst El area de texto de la GUI donde se escribe lo que envía el servidor
      */
-    public void escucharAlServidor(JTextArea area) 
+    public void escucharAlServidor(JTextArea areaListaEst, JTextArea areaListaAsig ,JTextArea areaTab) 
     {
         String mensajeRecibido = "";
+        enviarDatos("lisE","");//lis de lista de estudiantes
+        enviarDatos("lisA","");//lisA de lista de Asignaturas
+    
         do 
-        {
+        {   
+            int contador =0;
             try 
-            {   mensajeRecibido = ( String ) entrada.readObject();
-                area.append("\n" + mensajeRecibido);
+            {   
+                mensajeRecibido = ( String ) entrada.readObject();
+                System.out.println( "mensaje del cliente "+mensajeRecibido);
+
+                if(mensajeRecibido.charAt(0) == "T".charAt(0)){
+                    areaTab.setText(mensajeRecibido);
+
+                }
+                if(mensajeRecibido.contains("Estudiantes")){
+                    areaListaEst.setText( mensajeRecibido);
+                    
+
+                }if(mensajeRecibido.contains("Asignaturas")){
+                    
+                    areaListaAsig.setText( mensajeRecibido);
+
+                }
+                if (contador > 10) {
+                    entrada.close();
+                    salida.close();
+                    cliente.close();
+
+                }
+                
                 
             } catch ( ClassNotFoundException ene ){
                 System.out.println( "nSe recibio un tipo de objeto desconocido"+ene.getMessage() );
+                
             } catch (IOException ex) {
                 System.out.println("Se arrojó un ioexcepcion cuando se trataba de leer del servidor "+ex.getMessage());
+                
+                System.out.println("se cerró la conexion");
+                mensajeRecibido="T";
+
             }
-        } while ( !mensajeRecibido.equals( "SERVIDOR>>> TERMINAR" ) );
+        } while ( !mensajeRecibido.equals( "T" ) );
         try {
             //se cierra la conexion
             entrada.close();
