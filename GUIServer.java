@@ -24,7 +24,7 @@ public class GUIServer extends JFrame{
     JTextArea area;
     JScrollPane barras;
     Container contenedor;   
-    
+    LogicaServidor logica = new LogicaServidor();
     
     public GUIServer() {
         super("Servidor - Ejemplo");
@@ -48,9 +48,9 @@ public class GUIServer extends JFrame{
     public static void main(String[] args) {
         
         GUIServer aplicacion = new GUIServer();
-        LogicaServidor logica = new LogicaServidor();
         
-        logica.ejecutarServidor(aplicacion.area);
+        
+        aplicacion.logica.ejecutarServidor(aplicacion.area);
                 
         aplicacion.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

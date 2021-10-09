@@ -155,14 +155,44 @@ import javax.swing.*;
     setTitle("Sistema de gestión de cursos");
     setSize(680, 400);
     setVisible(true);
-    //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    //Cuando se cierre la pestaña se desconecte del servidor
+    addWindowListener(new WindowAdapter(){
+      public void windowClosing(WindowEvent e){
+        try {
+          //cuanto le envio 'T' se termina la conexión
+          logica.enviarDatos("T","");
+          
+        } catch (Exception ex) {
+          System.out.println("No se pudo cerrar la conexion con el servidor");
+          JOptionPane.showMessageDialog(null,"No se pudo cerrar la conexion con el servidor");
+          
+        }
+
+
+      }
+
+    });
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     
 
 
   }
-  
-
+   /**
+    * metodo para cerrar la conexion con el servidor
+    * 
+    */
+    public void cerrarConexion(){
+      try {
+        logica.enviarDatos("T","");
+        
+      } catch (Exception e) {
+        System.out.println("No se pudo cerrar la conexion con el servidor");
+        JOptionPane.showMessageDialog(null,"No se pudo cerrar la conexion con el servidor");
+        
+      }
+    }
   public static void main(String[] args){
 
 
