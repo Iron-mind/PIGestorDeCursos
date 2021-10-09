@@ -4,10 +4,29 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JTextArea;
 
+/**
+ * Archivo: LogicaServidor.java 
+ * clase LogicaServidor 
+ * 
+ * Autores: 
+ * Juan David Tovar Montoya
+ * davidtovarmontoya@gmail.com
+ * 
+ * Jose Andres S. Florez - 
+ * jose.andres.sanchez@correounivalle.edu.co
+ * 
+ * Wilian Fernando Quintero Tello - 
+ * wilian.quintero@correounivalle.edu.co
+ * 
+ * 
+ * Es toda la lógica del servidor. Es la lógica del servidor, recibe y envia los mensajes al cliente. 
+ * Esta clase es instanciada en la GUIServer.
+ * 
+ */
 
 public class LogicaServidor {
 
-    String espacio="  . ................................  ";
+    String espacio="  . ............................... .  ";
     String listAADatosDePrueba= "7400026"+espacio+	"Alg.Lineal\n"
     +"7400038"+espacio+	"Calculo\n"
     +"7500065"+espacio+	"Prog.Funcional\n"

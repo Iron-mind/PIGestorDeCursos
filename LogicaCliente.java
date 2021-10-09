@@ -5,7 +5,25 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.swing.JTextArea;
-
+/**
+ * Archivo: LogicaCliente.java 
+ * clase LogicaCliente 
+ * 
+ * Autores: 
+ * Juan David T. Montoya
+ * davidtovarmontoya@gmail.com
+ * 
+ * Jose Andres S. Florez - 
+ * jose.andres.sanchez@correounivalle.edu.co
+ * 
+ * Wilian Fernando Quintero Tello - 
+ * wilian.quintero@correounivalle.edu.co
+ * 
+ * 
+ * Es toda la lógica del cliente, recibe y envia los mensajes al servidor. 
+ * Esta clase es instanciada en la gui.
+ * 
+ */
 
 public class LogicaCliente {
     
@@ -14,7 +32,7 @@ public class LogicaCliente {
     private Socket cliente;
     
     /**
-     * Método que conecta al cliente con el servidor ycrea los flujos de entrada y salida para
+     * Método que conecta al cliente con el servidor y crea los flujos de entrada y salida para
      * comunicarse con él
      * @param direccionServer
      * @return mensaje de conexión exitosa
@@ -47,6 +65,8 @@ public class LogicaCliente {
      * método que se queda escuchando por los mensajes del servidor y lo muestro en el
      * area enviada como parámetro
      * @param areaListaEst El area de texto de la GUI donde se escribe lo que envía el servidor
+     * @param areaListaAsig El area de texto de la GUI donde se escribe lo que envía el servidor
+     * @param areaTab El area de texto de la GUI donde se escribe lo que envía el servidor
      */
     public void escucharAlServidor(JTextArea areaListaEst, JTextArea areaListaAsig ,JTextArea areaTab) 
     {
@@ -56,7 +76,7 @@ public class LogicaCliente {
     
         do 
         {   
-            int contador =0;
+            
             try 
             {   
                 mensajeRecibido = ( String ) entrada.readObject();
@@ -75,12 +95,7 @@ public class LogicaCliente {
                     areaListaAsig.setText( mensajeRecibido);
 
                 }
-                if (contador > 10) {
-                    entrada.close();
-                    salida.close();
-                    cliente.close();
-
-                }
+              
                 
                 
             } catch ( ClassNotFoundException ene ){

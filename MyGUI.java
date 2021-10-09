@@ -1,12 +1,21 @@
 /**
  * Archivo MyGUI.java
- En este archivo se encuentra la interfaz del programa
- * @authors
-     David Tovar Montoya
-    davidtovarmontoya@gmail.com
-   
+ * clase MyGUI
+ * Autores: 
+ * Juan David Tovar Montoya
+ * davidtovarmontoya@gmail.com
+ * 
+ * Jose Andres S. Florez - 
+ * jose.andres.sanchez@correounivalle.edu.co
+ * 
+ * Wilian Fernando Quintero Tello - 
+ * wilian.quintero@correounivalle.edu.co
+ * 
+ *  En este archivo se encuentra la interfaz del programa.
+ * 
+ * Es la GUI del cliente, permite visualizar las repuestas del servidor. 
+ * Y controlar la logica cliente.
  */
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
@@ -18,7 +27,7 @@ import javax.swing.*;
 
  public class MyGUI extends JFrame{
    //configuración servidor
-    static LogicaCliente logica;
+     LogicaCliente logica =new LogicaCliente();
     
 
     //para la interfaz:
@@ -158,9 +167,9 @@ import javax.swing.*;
 
 
     // parte del cliente
-   logica = new LogicaCliente();   
+   //logica = new LogicaCliente();   
    MyGUI GUI = new MyGUI();
-   String sal=logica.conectar("192.168.101.6"); //esta ip es local (puede cambiar)
+   String sal= GUI.logica.conectar("192.168.101.6"); //esta ip es local (puede cambiar)
    //registroClienteServidor += sal;
 
    //GUI.Tabulado.append(sal); //en tabulado se va registrando lo que contesta el servidor
@@ -175,7 +184,7 @@ import javax.swing.*;
           
           GUI.cancelar.setEnabled(true);
                 //invocar al método que se queda escuchando al servidor
-          logica.escucharAlServidor(GUI.listEst,GUI.listAsig, GUI.Tabulado);
+          GUI.logica.escucharAlServidor(GUI.listEst,GUI.listAsig, GUI.Tabulado);
          
         }
         JOptionPane.showMessageDialog(null, "El servidor no se encuentra en ejecución \nCierre el programa y eecutelo despues del servidor ");
@@ -193,18 +202,18 @@ import javax.swing.*;
 
       if(ae.getSource() == matricular)
       {
-        logica.enviarDatos("tab","");
         JOptionPane.showMessageDialog(null, "Usted Intenta Matricular\n "+logica.enviarDatos("M "+textEst.getText().trim(),textAsi.getText().trim()));
-
+        logica.enviarDatos("tab","");
+         
 
       }
       
       else if(ae.getSource() == cancelar)
       {
-        logica.enviarDatos("tab","");
         
         JOptionPane.showMessageDialog(null, "Usted Intenta Cancelar\n "+logica.enviarDatos("Ca "+textEst.getText().trim(),textAsi.getText().trim()));
-        //JOptionPane.showMessageDialog(null, "Usted Intenta Cancelar\n "+logica.enviarDatos("TAB "+textEst.getText().trim(),textAsi.getText().trim()));
+        logica.enviarDatos("tab","");
+        
 
       }
       ///POR AHORA TERMINA LA CONEXION AQUI
