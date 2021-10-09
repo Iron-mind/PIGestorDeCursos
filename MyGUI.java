@@ -187,7 +187,11 @@ import javax.swing.*;
    //logica = new LogicaCliente();   
    MyGUI GUI = new MyGUI();
    String sal= GUI.logica.conectar("192.168.101.6"); //esta ip es local (puede cambiar)
+   if(sal.length()<=0){
    JOptionPane.showMessageDialog(null, "El servidor no se encuentra en ejecución \nCierre el programa y ejecutelo despues del servidor ");
+
+
+   }
    //registroClienteServidor += sal;
    //GUI.Tabulado.append(sal); //en tabulado se va registrando lo que contesta el servidor
 
