@@ -114,7 +114,7 @@ public class LogicaServidor {
                 else if(mensaje.toLowerCase().contains("tab")) //tab para tabular
                     enviarMensaje("TABULANDO...");
                 else if(mensaje.contains("lisE")) //lis para listar
-                    enviarMensaje("Listando Estudiantes...\n \n"+listAEDatosDePrueba);
+                    enviarMensaje("Listando Estudiantes\n \n"+listAEDatosDePrueba);
                 else if(mensaje.contains("lisA")) //lis para listar
                     enviarMensaje("Listando Asignaturas...\n \n"+listAADatosDePrueba );
                 
