@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.swing.JTextArea;
+import javax.swing.*;
 /**
  * Archivo: LogicaCliente.java 
  * clase LogicaCliente 
@@ -78,10 +79,23 @@ public class LogicaCliente {
         {   
             
             try 
+
             {   
                 mensajeRecibido = ( String ) entrada.readObject();
-                System.out.println( "mensaje del cliente "+mensajeRecibido);
+                
+                
 
+                if( mensajeRecibido.contains("MATRICULADO")){
+                    JOptionPane.showMessageDialog(null,mensajeRecibido); 
+                    areaTab.append("\n"+ mensajeRecibido);
+                }if(mensajeRecibido.contains("NO se pudo")){
+                    JOptionPane.showMessageDialog(null,mensajeRecibido); 
+
+                    areaTab.append(mensajeRecibido);
+
+                }
+
+                 // El servidor me envia 'TABULDO' el primer caracter es 'T'
                 if(mensajeRecibido.charAt(0) == "T".charAt(0)){
                     areaTab.setText(mensajeRecibido);
 
@@ -95,7 +109,10 @@ public class LogicaCliente {
                     areaListaAsig.setText( mensajeRecibido);
 
                 }
-              
+                    
+
+                
+                System.out.println("llegó a cliente"+mensajeRecibido);
                 
                 
             } catch ( ClassNotFoundException ene ){

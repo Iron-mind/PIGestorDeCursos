@@ -1,16 +1,33 @@
 
 import java.sql.*;
-import java.util.Scanner;
+/**
+ * Archivo: GestorDB.java 
+ * clase GestorDB 
+ * 
+ * Autores: 
+ * Juan David T. Montoya
+ * davidtovarmontoya@gmail.com
+ * 
+ * Jose Andres S. Florez - 
+ * jose.andres.sanchez@correounivalle.edu.co
+ * 
+ * Wilian Fernando Quintero Tello - 
+ * wilian.quintero@correounivalle.edu.co
+ * */
+ //GestorBD:
+//Gestor que se encarga de hacer la conexion con la base de datos, ingresar nuevas entradas en
+//la tabla relaciones y sacar los datos necesarios para el manejo de un sistema de matricula
+ 
 
-public class FachadaBD {
+public class GestorDB {
 
     String url, usuario, password;
     Connection conexion;
     Statement instruccion;
     ResultSet tabla;
 
-    public FachadaBD(){
-    url= "jdbc:postgresql://localhost:5432/postgres";
+    public GestorDB(){
+    url= "jdbc:postgresql://localhost:5432/PIPF";
     usuario="postgres";
     password="Ingeniestor";
 
@@ -23,7 +40,7 @@ public class FachadaBD {
         
         try {
             Class.forName("org.postgresql.Driver");
-        //System.out.println( "Driver Cargado" );
+        
         }
         
         catch( Exception e ) {
@@ -31,7 +48,7 @@ public class FachadaBD {
 
         try{
         conexion = DriverManager.getConnection(url, usuario, password);
-        //System.out.println( "Conexion Abierta" );
+        
         return conexion;
         }
 
@@ -122,8 +139,8 @@ public class FachadaBD {
 
     //consultarEstudiante:
      //metodo que devuelve los codigo y nombres de los estudiantes en la base de datos
-    public void consultarEstudiantes(){
-
+    public String consultarEstudiantes(){
+     String tablaString = "CODIGO                   NOMBRE\n \n";
      String sql = "SELECT codigo, nombre FROM estudiante";
 
     try{
@@ -134,7 +151,8 @@ public class FachadaBD {
         
         while(tabla.next())
         {
-        System.out.println("Codigo: " + tabla.getString(1) + " Nombre: " + tabla.getString(2));
+        
+        tablaString +=tabla.getString(1) + " . ............... " + tabla.getString(2)+"\n" ;
         }
 
         conn.close();
@@ -144,13 +162,14 @@ public class FachadaBD {
 
      catch(SQLException e){ System.out.println(e); }
      catch(Exception e){ System.out.println(e); }
+     return tablaString;
     }//fin consultarEstudiante
 
 
     //consultarAsignatura
     //metodo que devuelve los codigo y nombres de las asignaturas en la base de datos
-    public void consultarAsignatura(){
-
+    public String consultarAsignatura(){
+     String tablaString = "CODIGO                   MATERIA\n  \n";
      String sql = "SELECT codigo, nombre FROM asignatura";
        
     try{
@@ -161,7 +180,9 @@ public class FachadaBD {
                
        while(tabla.next())
         {
-        System.out.println("Codigo: " + tabla.getString(1) + " Materia: " + tabla.getString(2));
+       
+        tablaString +=tabla.getString(1) + " . ............... " + tabla.getString(2)+"\n" ;
+        
         }
        
        conn.close();
@@ -171,7 +192,7 @@ public class FachadaBD {
        
     catch(SQLException e){ System.out.println(e); }
     catch(Exception e){ System.out.println(e); }
-
+    return tablaString;
     }//fin consultarAsignatura
 
 
@@ -290,15 +311,85 @@ public class FachadaBD {
         return r;
     }//fin cupDisponible
 
+  
+   /**
+    * @params codMateria el codigo de la materia que está en base de datos.
+    * retorna el nombre de la materia que está en la tabla asignaturas
+    */
+   public String nombreDeMateria(String codMateria) {
+    
+    String sql = "SELECT  nombre FROM asignatura WHERE codigo ="+"'"+codMateria+"'";
+    String nombreEncontrado ="";
 
-    public static void main(String[] args) {
+    try {
+        Connection conn = conectar();
+        Statement sentencia = conn.createStatement();
+        ResultSet tabla = sentencia.executeQuery(sql);
+        if(tabla.next()){
+            nombreEncontrado+= tabla.getString(1) ;
+        }
+        
 
-        FachadaBD BD = new FachadaBD();
-        System.out.println("" + BD.borrarRegistro("184951", "7500083") );
-        //BD.totalCredAsi("181546");
-        BD.cupDisponible("7500083"); 
-        BD.totalCredAsi("184951");
-    }
+    } 
+    catch(SQLException e){ System.out.println(e); }
+    catch(Exception e){ System.out.println(e); }
+       return nombreEncontrado;
+   }
 
+    /**
+    * @params codEstudiante el codigo de la materia que está en base de datos.
+    * retorna el tabulado de un estudiante en forma de string.
+    */
+    public String tabuladoDe(String codEstudiante){
+        String tablaString = "CODIGO                      MATERIA                         CREDITOS\n  \n";
+        String sql = "SELECT  cod_asignatura FROM relacion WHERE cod_estudiante ="+"'"+codEstudiante+"'";
+        
+       try{
+          
+          Connection conn = conectar();
+          Statement sentencia = conn.createStatement();
+          ResultSet tabla = sentencia.executeQuery(sql);
+                  
+          while(tabla.next())
+           {
+          
+           tablaString +=tabla.getString(1) + " ..................... " 
+           + nombreDeMateria(tabla.getString(1))+ " .................. "+consultarCredAsi(tabla.getString(1))+"\n" ;
+           
+           }
+          
+          conn.close();
+          System.out.println("Conexion cerrada");
+          
+       }
+          
+       catch(SQLException e){ System.out.println(e); }
+       catch(Exception e){ System.out.println(e); }
+       return tablaString;
+       }
+
+    //   public static void main(String[] args) {
+    //       GestorDB db = new GestorDB();
+    //       System.out.print( db.tabuladoDe("181546") ) ;
+          
+    //   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 }

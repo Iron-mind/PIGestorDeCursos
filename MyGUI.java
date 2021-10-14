@@ -182,18 +182,17 @@ import javax.swing.*;
  
   public static void main(String[] args){
 
-
-    // parte del cliente
-   //logica = new LogicaCliente();   
+    // parte del cliente  
    MyGUI GUI = new MyGUI();
-   String sal= GUI.logica.conectar("192.168.101.6"); //esta ip es local (puede cambiar)
+   String ip   = (JOptionPane.showInputDialog("Ingrese la ip donde se ejecuta el servidor\n"));
+   // "192.168.101.6" esta ip es de uno de los que desarrollaron la app
+   String sal= GUI.logica.conectar( ip); 
    if(sal.length()<=0){
    JOptionPane.showMessageDialog(null, "El servidor no se encuentra en ejecución \nCierre el programa y ejecutelo despues del servidor ");
 
 
    }
-   //registroClienteServidor += sal;
-   //GUI.Tabulado.append(sal); //en tabulado se va registrando lo que contesta el servidor
+   
 
         if(sal.length()>0 && sal.substring(0, 1).equals("1"))
         {
@@ -223,7 +222,10 @@ import javax.swing.*;
 
       if(ae.getSource() == matricular)
       {
-        JOptionPane.showMessageDialog(null, "Usted Intenta Matricular\n "+logica.enviarDatos("M "+textEst.getText().trim(),textAsi.getText().trim()));
+        JOptionPane.showMessageDialog(null, "Usted Intenta Matricular\n "+textAsi.getText().trim());
+        //si le envio "M" es para matricular
+        logica.enviarDatos("M "+textEst.getText().trim(),textAsi.getText().trim());
+         //si le envio "tab" es para tabular
         logica.enviarDatos("tab","");
          
 
@@ -232,7 +234,9 @@ import javax.swing.*;
       else if(ae.getSource() == cancelar)
       {
         
-        JOptionPane.showMessageDialog(null, "Usted Intenta Cancelar\n "+logica.enviarDatos("Ca "+textEst.getText().trim(),textAsi.getText().trim()));
+        JOptionPane.showMessageDialog(null, "Usted Intenta Cancelar\n "+textAsi.getText().trim());
+        //si le envio "Ca" es para cancelar
+        logica.enviarDatos("Ca "+textEst.getText().trim(),textAsi.getText().trim());
         logica.enviarDatos("tab","");
         
 
