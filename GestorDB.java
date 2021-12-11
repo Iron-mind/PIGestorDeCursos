@@ -29,7 +29,7 @@ public class GestorDB {
     public GestorDB(){
     url= "jdbc:postgresql://localhost:5432/PIPF";
     usuario="postgres";
-    password="Ingeniestor";
+    password="password";
 
     }//fin constructor
 
