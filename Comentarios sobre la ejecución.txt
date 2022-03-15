@@ -2,13 +2,13 @@ Comentarios
 
 -El proyecto fue desarrollado con JDK 16 y postgrest 14
 
--El driver java-postgresql se utilizÛ meramente en VScode por lo puede tener problemas al ejecutarse. 
+-El driver java-postgresql se utiliz√≥ meramente en VScode por lo puede tener problemas al ejecutarse. 
 
 -El driver que utilizamos fue este: postgresql-42.2.24 (https://jdbc.postgresql.org/download/postgresql-42.2.24.jar)
 
 -La base de datos se encuentra en el archivo PIPF. Es formato custom.
 
-- En el archivo GestorDB encontrar·:
+- En el archivo GestorDB encontrar√°:
 
                                          Nombre de la base de datos
                                              |
@@ -16,8 +16,8 @@ Comentarios
                                              |/
  30   url= "jdbc:postgresql://localhost:5432/PIPF";
  31   usuario="postgres"; <---------------------------- su usuario de postgres
- 32   password="Ingeniestor";
+ 32   password="contraseno";
                  /|
                   |
                   |
-               Su contraseÒa
+               Su contrase√±a
